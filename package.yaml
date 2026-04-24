@@ -23,6 +23,10 @@ dependencies:
 - base >= 4.7 && < 5
 - hasktorch
 - hasktorch-tools
+- nlp-tools
+- cassava
+- vector
+- bytestring
 
 ghc-options:
 - -Wall
@@ -42,6 +46,36 @@ executables:
   my-hasktorch-exe:
     main:                Main.hs
     source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - my-hasktorch
+
+  session3-linear-regression:
+    main:                LinearRegression.hs
+    source-dirs:         Session3
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - my-hasktorch
+
+  session-3-graduate-admission-linear:
+    main:                GraduateAdmissionLinear.hs
+    source-dirs:         Session3
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - my-hasktorch
+
+  session-3-multiple-regression:
+    main:                MultipleRegression.hs
+    source-dirs:         Session3
     ghc-options:
     - -threaded
     - -rtsopts
