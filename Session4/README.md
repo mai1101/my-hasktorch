@@ -27,8 +27,8 @@
 
 ## Hands-on tasks
 ### 1 
-Build and train an AND gate using a simple perceptron
-results
+Build and train an AND gate using a simple perceptron  
+#### results
 ```
 Prediction: [1.0,0.0,0.0,0.0]
 Final Weights: [0.33418733,0.10479676]
@@ -70,12 +70,12 @@ instance Randomizable MLPSpec MLP where
         where
           shift (a, b) c = (b, c)
 ```
-`data LinearSpec = LinearSpec {in_features :: Int, out_features :: Int}`
-`class Randomizable spec f | spec -> f where
+`data LinearSpec = LinearSpec {in_features :: Int, out_features :: Int}`  
+`class Randomizable spec f | spec -> f where    
   sample :: spec -> IO f`
 
-`LinearSpec`: it stores the number of inputs and outputs for a single layer
-`sample` : Takes a `LinearSpec` and returns a `Linear` object with random initial values
+`LinearSpec`: it stores the number of inputs and outputs for a single layer  
+`sample` : Takes a `LinearSpec` and returns a `Linear` object with random initial values  
 
 #### Calculate with MLP model
 ```haskell
@@ -84,8 +84,8 @@ mlp MLP {..} input = foldl' revApply input $ intersperse nonlinearity $ map line
   where
     revApply x f = f x
 ```
-`map linear layers` : List of linear function like [wx1+b, wx2+b ... ]
-`intersperse nonlinearity` : Include the application of the activation function in the layer's calculation
+`map linear layers` : List of linear function like [wx1+b, wx2+b ... ]  
+`intersperse nonlinearity` : Include the application of the activation function in the layer's calculation  
 
 #### Initialize value
 ```haskell
@@ -95,8 +95,8 @@ numIters = 2000
 model :: MLP -> Tensor -> Tensor
 model params t = mlp params t      -- Set the MLP for the model you are using
 ```
-`batchSize`  : Number of data points processed per training iteration
-`numIters`   : Number of training iterations
+`batchSize`  : Number of data points processed per training iteration  
+`numIters`   : Number of training iterations  
 
 
 #### main function
@@ -108,7 +108,7 @@ init <-
           nonlinearitySpec = Torch.tanh  -- set the activation function to tanh
         }
 ```
-Initialize the model with the specified number of layers and activation function
+↑ Initialize the model with the specified number of layers and activation function
 
 ```haskell
 trained <- foldLoop init numIters $ \state i -> do
@@ -120,14 +120,15 @@ trained <- foldLoop init numIters $ \state i -> do
     (newState, _) <- runStep state optimizer loss 1e-1 
     return newState
 ```
-`input`    : generated two random sets of input data for the XOR ex. [[0,1],[1,1]]
-`y`        : currect value
-`y'`       : estimated value
-`loss`     : Mean Squared Error of `y` and `y'`
-`1e-1`     : learning rate  
-`newState` : new model after weight updates
+`input`    : generated two random sets of input data for the XOR ex. [[0,1],[1,1]]   
+`y`        : currect value   
+`y'`       : estimated value  
+`loss`     : Mean Squared Error of `y` and `y'`  
+`1e-1`     : learning rate    
+`newState` : new model after weight updates  
 
-Train the initialized model `init` for `numIters` iterations
+↑ Train the initialized model `init` for `numIters` iterations  
+
 
 ```haskell
 where
@@ -138,8 +139,8 @@ where
         a = select 1 0 t
         b = select 1 1 t
 ```
-`GD`        : Gradient Descent (勾配降下法)
-`tensorXOR` : A function that performs XOR operations
+`GD`        : Gradient Descent (勾配降下法)  
+`tensorXOR` : A function that performs XOR operations   
 
 
 ### 2.d
@@ -148,7 +149,7 @@ where
 A runtime error occurred because step function is not continuous function.
 
 #### tanh
-learning rate : 1e-1
+learning rate = 1e-1  
 numIters = 2000
 ```
 Iteration: 100 | Loss: Tensor Float []  0.2938   
@@ -180,7 +181,7 @@ Final Model:
 Convergence was faster compared to the sigmoid function.
 
 #### sigmoid
-learning rate : 1e-1
+learning rate = 1e-1  
 numIters = 5000
 ```
 Iteration: 500 | Loss: Tensor Float []  0.2814   
