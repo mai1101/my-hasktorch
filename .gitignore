@@ -2,4 +2,7 @@
 Session3/data/
 .DS_Store
 .ipynb_checkpoints/
+app/test
+*.hi
+*.o
 *~
