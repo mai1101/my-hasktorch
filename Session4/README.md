@@ -9,7 +9,7 @@
 ### Multi-layer perceptron :
 - A large-scale neural network constructed by combining single perceptrons.
 - It has an input layer, multiple hidden layers, and an output layer.
-- It is more suitable than a simple perceptron for solving XOR.
+- It is more suitable than a simple perceptron for solving XOR because it can solve non-linear classification. 
 
 ### Activation functions
 - step function    :  if argument is greater than 0 , it returns 1 else 0
@@ -150,54 +150,46 @@ A runtime error occurred because step function is not continuous function.
 
 #### tanh
 learning rate = 1e-1  
-numIters = 2000
+numIters = 1000
 ```
-Iteration: 100 | Loss: Tensor Float []  0.2938   
-Iteration: 200 | Loss: Tensor Float []  0.2223   
-Iteration: 300 | Loss: Tensor Float []  7.2032e-2
-Iteration: 400 | Loss: Tensor Float []  0.1341   
-Iteration: 500 | Loss: Tensor Float []  1.3792e-2
-Iteration: 600 | Loss: Tensor Float []  0.1212   
-Iteration: 700 | Loss: Tensor Float []  7.7361e-2
-Iteration: 800 | Loss: Tensor Float []  0.2183   
-Iteration: 900 | Loss: Tensor Float []  0.1061   
-Iteration: 1000 | Loss: Tensor Float []  1.8979e-2
-Iteration: 1100 | Loss: Tensor Float []  1.2708e-3
-Iteration: 1200 | Loss: Tensor Float []  4.0360e-5
-Iteration: 1300 | Loss: Tensor Float []  1.5520e-6
-Iteration: 1400 | Loss: Tensor Float []  1.1575e-8
-Iteration: 1500 | Loss: Tensor Float []  1.9537e-9
-Iteration: 1600 | Loss: Tensor Float []  1.7396e-10
-Iteration: 1700 | Loss: Tensor Float []  4.7411e-12
-Iteration: 1800 | Loss: Tensor Float []  8.8818e-14
-Iteration: 1900 | Loss: Tensor Float []  8.8818e-15
-Iteration: 2000 | Loss: Tensor Float []  3.5527e-15
+Iteration: 100 | Loss: Tensor Float []  0.4997   
+Iteration: 200 | Loss: Tensor Float []  0.2390   
+Iteration: 300 | Loss: Tensor Float []  8.0503e-2
+Iteration: 400 | Loss: Tensor Float []  4.3146e-2
+Iteration: 500 | Loss: Tensor Float []  8.1531e-2
+Iteration: 600 | Loss: Tensor Float []  5.0508e-2
+Iteration: 700 | Loss: Tensor Float []  3.1344e-3
+Iteration: 800 | Loss: Tensor Float []  8.1469e-5
+Iteration: 900 | Loss: Tensor Float []  6.1959e-6
+Iteration: 1000 | Loss: Tensor Float []  3.1173e-7
 Final Model:
-0, 0 => Tensor Float []  5.9605e-8
-0, 1 => Tensor Float []  1.0000   
-1, 0 => Tensor Float []  1.0000   
-1, 1 => Tensor Float []  1.1921e-7
+[0.0,0.0] => Tensor Float []  2.1011e-4
+[0.0,1.0] => Tensor Float []  0.9996   
+[1.0,0.0] => Tensor Float []  0.9998   
+[1.0,1.0] => Tensor Float []  3.6639e-4
 ```
+![Loss](./loss_decrease2.png)   
 Convergence was faster compared to the sigmoid function.
 
 #### sigmoid
 learning rate = 1e-1  
 numIters = 5000
 ```
-Iteration: 500 | Loss: Tensor Float []  0.2814   
-Iteration: 1000 | Loss: Tensor Float []  0.3204   
-Iteration: 1500 | Loss: Tensor Float []  0.4538   
-Iteration: 2000 | Loss: Tensor Float []  0.2823   
-Iteration: 2500 | Loss: Tensor Float []  8.9666e-3
-Iteration: 3000 | Loss: Tensor Float []  7.5317e-5
-Iteration: 3500 | Loss: Tensor Float []  6.0516e-8
-Iteration: 4000 | Loss: Tensor Float []  2.2204e-10
-Iteration: 4500 | Loss: Tensor Float []  3.5527e-13
-Iteration: 5000 | Loss: Tensor Float []  2.4336e-13
+Iteration: 500 | Loss: Tensor Float []  0.3460   
+Iteration: 1000 | Loss: Tensor Float []  0.2596   
+Iteration: 1500 | Loss: Tensor Float []  0.2854   
+Iteration: 2000 | Loss: Tensor Float []  0.2985   
+Iteration: 2500 | Loss: Tensor Float []  0.1208   
+Iteration: 3000 | Loss: Tensor Float []  0.1041   
+Iteration: 3500 | Loss: Tensor Float []  0.1223   
+Iteration: 4000 | Loss: Tensor Float []  4.8736e-2
+Iteration: 4500 | Loss: Tensor Float []  2.6326e-3
+Iteration: 5000 | Loss: Tensor Float []  8.1762e-5
 Final Model:
-0, 0 => Tensor Float []  5.9605e-7
-0, 1 => Tensor Float []  1.0000   
-1, 0 => Tensor Float []  1.0000   
-1, 1 => Tensor Float []  4.7684e-7
+[0.0,0.0] => Tensor Float []  2.6968e-3
+[0.0,1.0] => Tensor Float []  0.9932   
+[1.0,0.0] => Tensor Float []  0.9952   
+[1.0,1.0] => Tensor Float []  9.3691e-3
 ```
+![Loss](./loss_decrease3.png)   
 Convergence was slower compared to the tanh function.

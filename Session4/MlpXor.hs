@@ -9,14 +9,15 @@ import Control.Monad (when)
 import Data.List (foldl', intersperse, scanl')
 import GHC.Generics
 import Torch
-import Control.Monad (forM_)  
+import Control.Monad (forM_)
+import ML.Exp.Chart (drawLearningCurve)  
 
 -- hyperparameter
 batchSize :: Int
 batchSize = 2           -- 一度の学習で計算するデータ数
 
 numIters :: Int
-numIters = 2000         -- 何回学習するか
+numIters = 1000         -- 何回学習するか
 
 learnRate :: Tensor
 learnRate = 1e-1        -- 学習率
@@ -80,19 +81,23 @@ main = do
   -- 入力層2, 隠れ層2, 出力層1
   initModel <- sample $ MLPSpec [2, 2, 1] actFunc    
 
-  trained <- foldLoop initModel numIters $ \state i -> do
+  (trained, lossList) <- foldLoop (initModel, []) numIters $ \(state, pastLossList) i -> do
     input <- randIO' [batchSize, 2] >>= return . (toDType Float) . (gt 0.5) --XORの入力データをランダムに2セット生成 ex. [[0,1],[1,1]]
     let y  = tensorXOR input                  -- y:正しい値 
         y' = squeezeAll $ model state input   -- y':予測値
         loss = mseLoss y y'                   -- y,y'の平均二乗誤差
+        currentLoss = asValue loss :: Float   -- loss 記録用
 
     when (i `mod` 100 == 0) $ do
       putStrLn $ "Iteration: " ++ show i ++ " | Loss: " ++ show loss  -- 誤差を表示
 
     (newState, _) <- runStep state GD loss learnRate                  -- 重みを更新し、新しいモデルをnewStateに格納
-    return newState
+    return (newState, currentLoss : pastLossList)
 
   putStrLn "Final Model:"
   forM_ ([[0,0],[0,1],[1,0],[1,1]::[Float]]) $ \x -> do
     putStr $ show x ++ " => "
     putStrLn $ show $ squeezeAll  $ model trained $ asTensor x 
+
+  let finalLosses = reverse lossList
+  drawLearningCurve "Session4/loss_decrease4.png" "Loss Curve" [("loss", finalLosses)]
