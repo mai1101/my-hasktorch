@@ -95,7 +95,7 @@ my-analyze:  The accuracy changed a lot (0.62 to 0.90) even with the same settin
 #### a. report my survey
 - **Mean Squared Error (MSE)**  
 definition : The average of the squares of the errors between predictions and actual values.  
-formula   : $E = - \frac{1}{N}\sum {(y-y')} $  
+formula   : $E = - \frac{1}{N}\sum {(y-y')^2} $  
 --- $y $ : actual value  
 --- $y'$ : predicted value  
 use cases : Regression problems 
