@@ -17,6 +17,8 @@ macro-f1-Score    : 0.9210006
 micro-f1-Score    : 0.925
 weighted-f1-Score : 0.9254443
 ``` 
+(Confusion Matrix = `[[TN, FP], [FN, TP]]`)
+
 ![Loss](./learning_curve3.png)  
 ---
  
