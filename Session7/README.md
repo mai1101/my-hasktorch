@@ -3,8 +3,8 @@
 ### RNN (Recurrent Neural Network)
 - It has a loop structure that passes past memories on to the next step by using hidden state.
 
-- The formula for updating the hidden state : 
-  $$ h_t = f(U x_t + W h_{t-1}) $$
+- The formula for updating the hidden state :  
+  $$h_t = f(U x_t + W h_{t-1})$$
 
 - $h_t$ : current hidden state at time $t$
 - $f$   : activation function (example: tanh or ReLU)
@@ -48,8 +48,8 @@ numIters = 500
 learnRate = 0.002    
 wordDimension = 64  
 batchSize = 32   
-dataSize = 1000   --train_dataとして使うreview数   
-rnnHiddenDim = 64  -- RNNの記憶のサイズ   
+dataSize = 1000   
+rnnHiddenDim = 64  
 
 ```
 Iteration: 50 | Loss_valid: Tensor Float []  9.6601   | Loss_train: Tensor Float []  9.6067   
@@ -346,8 +346,8 @@ numIters = 600
 learnRate = 0.002    
 wordDimension = 64    
 batchSize = 32    
-dataSize = 1000  --train_dataとして使うreview数   
-rnnHiddenDim = 64  -- RNNの記憶のサイズ   
+dataSize = 1000 
+rnnHiddenDim = 64     
 ```
 Iteration: 50 | Loss_valid: Tensor Float []  7.5164   | Loss_train: Tensor Float []  5.6366   
 Iteration: 100 | Loss_valid: Tensor Float []  5.6501   | Loss_train: Tensor Float []  2.9102   
