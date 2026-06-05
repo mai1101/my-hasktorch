@@ -18,13 +18,13 @@ https://github.com/hasktorch/hasktorch/blob/16b7e3efdd7101f26987f5b88bbe3b150e5a
 　　　　  $$f_t = \sigma(W_{if} x_t + W_{hf} h_{t-1} + b_f)$$
 
     - Input Gate  $i_t$ : add memories worth remembering from new input data. 
-        $$i_t = \sigma(W_{ii} x_t + W_{hi} h_{t-1} + b_i)$$
+            $$i_t = \sigma(W_{ii} x_t + W_{hi} h_{t-1} + b_i)$$
 
-    - Candidate Cell State ($\tilde{c}_t$). 
-    　   $$\tilde{c}_t = \tanh(W_{ig} x_t + W_{hg} h_{t-1} + b_g)$$
+    - Candidate Cell State ($\tilde{c}_t$).   
+    　       $$\tilde{c}_t = \tanh(W_{ig} x_t + W_{hg} h_{t-1} + b_g)$$
 
     - Cell State Update $c_t$ : make Long-term memory. 
-        $$c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t$$
+            $$c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t$$
 
       -  $\odot$ : multiplication by elements
 
