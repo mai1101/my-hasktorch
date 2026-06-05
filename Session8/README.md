@@ -15,21 +15,21 @@ https://github.com/hasktorch/hasktorch/blob/16b7e3efdd7101f26987f5b88bbe3b150e5a
 
 - The Roles of the Three Types of Gates and cell state
     - Forget Gate $f_t$ : trush the unneccesary data from pass memories. 
-　　　　$$f_t = \sigma(W_{if} x_t + W_{hf} h_{t-1} + b_f)$$
+　　　　  $$f_t = \sigma(W_{if} x_t + W_{hf} h_{t-1} + b_f)$$
 
     - Input Gate  $i_t$ : add memories worth remembering from new input data. 
-       $$i_t = \sigma(W_{ii} x_t + W_{hi} h_{t-1} + b_i)$$
+        $$i_t = \sigma(W_{ii} x_t + W_{hi} h_{t-1} + b_i)$$
 
     - Candidate Cell State ($\tilde{c}_t$). 
-    　 $$\tilde{c}_t = \tanh(W_{ig} x_t + W_{hg} h_{t-1} + b_g)$$
+    　   $$\tilde{c}_t = \tanh(W_{ig} x_t + W_{hg} h_{t-1} + b_g)$$
 
     - Cell State Update $c_t$ : make Long-term memory. 
-       $$c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t$$
+        $$c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t$$
 
       -  $\odot$ : multiplication by elements
 
     - Output Gate $o_t$ : decide output from current memory and new input. 
-       $$o_t = \sigma(W_{io} x_t + W_{ho} h_{t-1} + b_o)$$
+        $$o_t = \sigma(W_{io} x_t + W_{ho} h_{t-1} + b_o)$$
 
 - Hidden State Update $h_t$. 
 $$h_t = o_t \odot \tanh(c_t)$$
