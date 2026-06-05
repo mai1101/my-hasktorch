@@ -31,8 +31,8 @@ https://github.com/hasktorch/hasktorch/blob/16b7e3efdd7101f26987f5b88bbe3b150e5a
     - Output Gate $o_t$ : decide output from current memory and new input. 
         - $$o_t = \sigma(W_{io} x_t + W_{ho} h_{t-1} + b_o)$$
 
-- Hidden State Update $h_t$. 
-$$h_t = o_t \odot \tanh(c_t)$$
+- Hidden State Update $h_t$.   
+    - $$h_t = o_t \odot \tanh(c_t)$$
 
 
 
@@ -71,7 +71,7 @@ Confusion Matrix (Row: True, Col: Pred):
 [0,0,3,9,7]
 [0,0,9,27,27]
 ```
-- It has slightly higher accuracy than RNN
+- It has higher accuracy than RNN
 - The loss decreases faster than with RNN.  
   RNN took a longer time to converge. Using the same parameters, the loss in RNN decreases to a certain extent after about 40 iterations, while in LSTM it decreases to a certain extent after about 20 iterations
 - Using LSTM increased the computational load, making the process very slow. While an RNN takes about 10 seconds for 80 loops, an LSTM takes about 1 minute
