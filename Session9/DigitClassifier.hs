@@ -31,18 +31,15 @@ actFunc :: Tensor -> Tensor
 actFunc = Torch.tanh   -- activation function
 
 
--- 1バッチ（32個など）ごとに学習を回すループ
+-- 1バッチごとに学習を回すループ
 trainLoop :: Optimizer o => [(Tensor, Tensor)] -> MLP -> o -> ListT IO (Tensor, Tensor) -> IO (MLP, [Float])
 trainLoop validDataList currentModel optimizer = P.foldM step begin done . enumerateData
   where
     step :: (MLP, [Float]) -> ((Tensor, Tensor), Int) -> IO (MLP, [Float])
     step (m, pastValidLosses) ((input, label), iter) = do
-      -- 1. 訓練データでの損失計算と重み更新
       let y' = logSoftmax (Dim 1) (model m input)
           loss = nllLoss' label y'
       (newModel, _) <- runStep m optimizer loss learnRate
-      
-      -- 2. 毎ループ、固定した検証用データで検証Lossを計算
       vLoss <- calcValidLoss newModel validDataList
       
       when (iter `mod` 200 == 0) $ do
@@ -55,7 +52,6 @@ trainLoop validDataList currentModel optimizer = P.foldM step begin done . enume
     done (m, vLosses) = pure (m, reverse vLosses)
 
 
--- 固定されたリストから検証Lossを計算する
 calcValidLoss :: MLP -> [(Tensor, Tensor)] -> IO Float
 calcValidLoss m validDataList = do
   losses <- forM validDataList $ \(img, label) -> do
@@ -181,10 +177,8 @@ main :: IO ()
 main = do
     (trainData, testData) <- initMnist "./session9/data" 
     let trainMnist = V.MNIST {batchSize = 32, mnistData = trainData}
-        -- カプセル化された testMnist ストリーム（ここから評価データを読み出す）
         testMnist  = V.MNIST {batchSize = 1,  mnistData = testData}
 
-    -- 最初に testData の「インデックス0〜99」の100件を引っこ抜いて検証用（valid）に固定
     putStrLn "Fixing 100 images for realtime validation..."
     fixedValidData <- forM [0 .. 99] $ \idx -> getItem testMnist idx
 
@@ -194,7 +188,6 @@ main = do
     
     (trainedModel, totalValidLossHistory) <- foldLoop (initModel, []) epoch $ \(m, pastValidLoss) ep -> do
         
-        -- 1. 訓練データで学習（内部で毎ステップ fixedValidData を使って検証Lossを測定）
         (newM, epochValidLosses) <- runContT (streamFromMap (datasetOpts 2) trainMnist) $ trainLoop fixedValidData m GD . fst
         
         return (newM, pastValidLoss ++ epochValidLosses)
